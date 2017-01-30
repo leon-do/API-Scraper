@@ -2,4 +2,4 @@
 
 `data.csv` file can then be imported into a sql database
 
-`email.js` is used to update the sql email column with the company email
+`email.js` is used to update the sql email column with the company email (specific for BBB)
