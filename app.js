@@ -5,13 +5,13 @@ var jsonexport = require('jsonexport');
 
 
 
-var token = "foobar"
+var token = "---------"
 var pageNumber = 1;
 
 
 
 
-new CronJob('1 * * * * *', function() {
+new CronJob('1-3 * * * * *', function() {
 
 	var options = {
 	  url: 'https://api.bbb.org/api/orgs/search?StateProvince=FL&PageNumber=' + pageNumber,
@@ -41,13 +41,20 @@ function callback(error, response, body) {
 function string2CSV(jsonString){
 	var jsonObject = JSON.parse(jsonString);
 
-	jsonexport(jsonObject.SearchResults,function(err, csv){
-	    appendCSV(csv)
-	})
+	if (jsonObject.SearchResults == ""){
+		return;
+	} else {
+		jsonexport(jsonObject.SearchResults,function(err, csv){
+		    appendCSV(csv)
+		})
+	}
+
+
 }
 
 
 function appendCSV(csv){
-	fs.appendFile("total.csv", csv)
+	fs.appendFile("data.csv", csv)
 	console.log(pageNumber)
+	pageNumber++;
 }
